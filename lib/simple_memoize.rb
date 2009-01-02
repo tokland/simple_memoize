@@ -21,10 +21,11 @@ module SimpleMemoize
     
         self.class_eval "
           def #{memoized_method_name}(*args)
-            if defined?(#{ivar_name})
-              #{ivar_name}
+            if defined?(#{ivar_name}) && #{ivar_name}.include?(args)
+              #{ivar_name}[args]
             else
-              #{ivar_name} = #{regular_method_name}(*args)
+              #{ivar_name} ||= Hash.new
+              #{ivar_name}[args] = #{regular_method_name}(*args)
             end
           end
 
