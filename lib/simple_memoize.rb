@@ -2,6 +2,7 @@ module SimpleMemoize
   VERSION = '1.1.0'
 
   module Module
+    # Memoize instance methods    
     def memoize(*method_names)
       method_names.each do |method_name|
         method_name = method_name.to_s
@@ -37,6 +38,14 @@ module SimpleMemoize
         "
       end
     end
+
+    # Memoize class methods
+    def cmemoize(*method_names)
+      eigenclass = class << self; self; end
+      eigenclass.class_eval do
+        memoize(*method_names)
+      end 
+    end    
   end
 end
 

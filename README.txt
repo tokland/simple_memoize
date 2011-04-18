@@ -52,6 +52,8 @@ You can use this on all classes and modules.
       memoize :colors
     end
   end
+
+You can also use cmemoize to easily memoize class methods:
   
   class House
     include Colorizable
@@ -61,12 +63,10 @@ You can use this on all classes and modules.
     end
     memoize :paint
     
-    class << self
-      def find_blues
-        .. find blue houses..
-      end
-      memoize :find_blues
+    def self.find_blues
+      .. find blue houses..
     end
+    cmemoize :find_blues
   end
   
   # the following are all memoized:
